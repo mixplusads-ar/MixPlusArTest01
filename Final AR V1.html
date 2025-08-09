@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>3D Model Viewer in AR</title>
+
+  <!-- Importing Google Fonts for Montserrat Bold -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&display=swap">
+
+  <!-- Importing Model-Viewer JavaScript -->
+  <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
+
+  <style>
+    /* Basic styling for body */
+    body {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      margin: 0;
+      background: linear-gradient(135deg, #e0f7f3, #ffffff); /* Light gradient background */
+      font-family: 'Montserrat', Arial, sans-serif;
+      color: #333;
+    }
+
+    /* Header styling */
+    .header {
+      width: 100%;
+      background-color: #73c9bd; /* Main theme color */
+      padding: 20px 0;
+      text-align: center;
+    }
+
+    .header img {
+      max-width: 150px; /* Adjust logo size */
+      height: auto;
+    }
+
+    /* Title styling */
+    h1 {
+      margin-top: 20px;
+      color: #0fa993; /* Theme color */
+      font-size: 2.5em;
+      text-align: center;
+      font-family: 'Montserrat', Arial, sans-serif; /* Montserrat Bold */
+    }
+
+    /* Model viewer container */
+    .model-container {
+      position: relative;
+      width: 100%;
+      max-width: 500px;
+      background-color: #ffffff;
+      padding: 15px;
+      border-radius: 10px;
+      box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      overflow: hidden;
+      aspect-ratio: 1 / 1;
+      z-index: 2; /* Ensure this stays above the AR button */
+    }
+
+    /* Hide the AR button inside the white container */
+    model-viewer::part(ar-button) {
+      display: none;
+    }
+
+    /* Add styling for the image */
+    .model-container img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain; /* Ensures the image scales automatically to fit */
+    }
+
+    /* AR Button styling, positioned at the bottom outside the white container */
+    .ar-button {
+      position: fixed;
+      bottom: 20px; /* Position at the bottom of the screen */
+      left: 50%;
+      transform: translateX(-50%); /* Center the button horizontally */
+      background-color: #0fa993;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 1.2em;
+      font-family: 'Montserrat', Arial, sans-serif; /* Montserrat Bold */
+      z-index: 3; /* On top of everything */
+    }
+
+    /* Instructions styling */
+    .instructions {
+      margin-top: 20px;
+      font-size: 1em;
+      color: #555;
+      text-align: center;
+      max-width: 500px;
+      font-family: 'Montserrat', Arial, sans-serif; /* Montserrat Bold */
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Header with logo -->
+  <div class="header">
+    <img src="https://i.imgur.com/mDtgz2O.png" alt="Logo">
+  </div>
+
+  <h1>This is test Site</h1>
+
+  <!-- Model Viewer Container -->
+  <div class="model-container">
+    <!-- Image that fits into the container -->
+    <img src="https://i.postimg.cc/J4mR8k3H/Gas-G510.jpg" alt="Your Image" /> <!-- Add your image URL here -->
+
+    <!-- 3D Model Viewer -->
+    <model-viewer
+      id="modelViewer"
+      src="https://drive.google.com/uc?export=download&id=1Y67eS2FnCsC9hj13Elmyyzay46qw6CmP"
+      ios-src="https://drive.google.com/uc?export=download&id=14uXPqeOeW1-jHr9ANAseyfFJ8Az3hA3M"
+      alt="3D Model"
+      ar
+      ar-modes="scene-viewer quick-look"
+      environment-image="neutral"
+      shadow-intensity="1"
+      camera-controls
+      disable-zoom
+      ar-placement="floor"
+      position="0 0 0"
+      scale="1 1 1"
+      >
+    </model-viewer>
+  </div>
+
+  <!-- AR Button positioned at the bottom outside the white container -->
+  <button class="ar-button" onclick="activateAR()">View in AR</button>
+
+  <p class="instructions">Tap the AR button to view this model in augmented reality!</p>
+
+  <script>
+    function activateAR() {
+      const modelViewer = document.getElementById('modelViewer');
+      if (modelViewer) {
+        modelViewer.activateAR();
+      }
+    }
+  </script>
+</body>
+</html>
